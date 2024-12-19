@@ -1,67 +1,75 @@
 #include <iostream>
 using namespace std;
 
-class Complex {
-private:
-    double real;
-    double imag;
+template <typename t>
+void selection_sort(t arr,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        int min=i;
 
-public:
-    Complex() {
-        real = 0;
-        imag = 0;
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[j]<arr[min])
+            {
+                min=j;
+                arr[i]=arr[i]+arr[min];
+                arr[min]=arr[i]-arr[min];
+                arr[i]=arr[i]-arr[min];
+            }
+        }
     }
 
-    Complex(double r, double i) {
-        real = r;
-        imag = i;
+}
+int main()
+{
+    int choice;
+    cout<<"enter choice :1)integer array 2)float array  :-";
+    cin>>choice;
+
+    int size;
+    cout<<"enter size of array :-";
+    cin>>size;
+
+if(choice==1)
+{
+    int arr[size];
+
+    cout<<"enter the elements in array :";
+    for(int i=0;i<size;i++)
+    {
+        cin>>arr[i];
+    }
+    
+    selection_sort(arr,size);
+
+    for(int i=0;i<size;i++)
+    {
+        cout<<arr[i]<<"\t";
+    }
+}
+else if (choice==2)
+{
+    float arr[size];
+
+    cout<<"enter the elements in array :";
+    for(int i=0;i<size;i++)
+    {
+        cin>>arr[i];
     }
 
-    Complex operator+(const Complex& other) const {
-        Complex result;
-        result.real = real + other.real;
-        result.imag = imag + other.imag;
-        return result;
+    selection_sort(arr,size);
+
+    for(int i=0;i<size;i++)
+    {
+        cout<<arr[i]<<"\t";
     }
 
-    Complex operator*(const Complex& other) const {
-        Complex result;
-        result.real = real * other.real - imag * other.imag;
-        result.imag = real * other.imag + imag * other.real;
-        return result;
-    }
+}
+else
+{
+    cout<<"user exited !!";
+}
 
-    friend ostream& operator<<(ostream& out, const Complex& c) {
-        if (c.imag >= 0)
-            out << c.real << "+" << c.imag << "i";
-        else
-            out << c.real << c.imag << "i";
-        return out;
-    }
-
-    friend istream& operator>>(istream& in, Complex& c) {
-        cout << "Enter real part: ";
-        in >> c.real;
-        cout << "Enter imaginary part: ";
-        in >> c.imag;
-        return in;
-    }
-};
-
-int main() {
-    Complex c1, c2, sum, product;
-
-    cout << "Enter first complex number:" << endl;
-    cin >> c1;
-
-    cout << "Enter second complex number:" << endl;
-    cin >> c2;
-
-    sum = c1 + c2;
-    product = c1 * c2;
-
-    cout << "Sum: " << sum << endl;
-    cout << "Product: " << product << endl;
-
-    return 0;
+return 0;
 }
